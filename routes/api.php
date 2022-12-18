@@ -292,9 +292,9 @@ Route::post('/getAllMessagesTest', function(Request $request){
          for($i=0;$i<count($object->sender_messages);$i++){
 
             if($object->sender_messages[$i]->Koha > $obj->last_seen_msg) 
-                $object->sender_messages['newMessage'] = true;
+               echo "new";
             else
-                $object->sender_messages['newMessage'] = false;
+                echo "not new";
          }   
         array_push($msgs,  $object);
         $senders[$n] = $obj->sender_id;
