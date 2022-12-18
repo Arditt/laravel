@@ -289,7 +289,14 @@ Route::post('/getAllMessagesTest', function(Request $request){
          $object->sender_emri = $obj->sender_emri;
          $object->last_seen_msg = $obj->last_seen_msg;
          $object->sender_messages = DB::Table('fshk_messages')->select('topic','msg','koha')->where('koha','>=',$obj->last_seen_msg)->whereIn('topic',$topics)->where('msg','!=','orariChange')->where('sender_id',$obj->sender_id)->get();
-           array_push($msgs,  $object);
+         for($i=0;$i<count($object->sender_messages);$i++){
+
+            if($object->sender_messages[$i]->Koha > $obj->last_seen_msg) 
+                $object->sender_messages['newMessage'] = true;
+            else
+                $object->sender_messages['newMessage'] = false;
+         }   
+        array_push($msgs,  $object);
         $senders[$n] = $obj->sender_id;
         $n++;
     }
